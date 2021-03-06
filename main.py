@@ -16,14 +16,13 @@ def getaccesstoken(CLIENT_ID,CLIENT_SECRET):
     accessToken=responseObject['access_token']
     return(accessToken)
 def getPlaylistTracks(token,playlistID):
-    playlistEndPoint=f'https://api.spotify.com/v1/me/playlists/{playlistID}'
+    playlistEndPoint=f"https://api.spotify.com/v1/playlists/{playlistID}"
     getHeader={'Authorisation':'Bearer '+token}
     res=requests.get(playlistEndPoint,headers=getHeader)
     playlistObject=res.json()
     return(playlistObject)
 token=getaccesstoken(CLIENT_ID,CLIENT_SECRET)
-print(token)
-playlistID='https://open.spotify.com/playlist/5sdLFAdbl2qN1I26x5BkS4?si=52d12ee08fbd4504'
+playlistID='37i9dQZF1DX08mhnhv6g9b?si=155f30399dcb42a4'
 tracklist=getPlaylistTracks(token,playlistID)
 print(tracklist)
 print(json.dumps(tracklist,indent=2))
