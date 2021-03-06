@@ -52,15 +52,11 @@ elif loginMethod == 2:
 elif loginMethod == 3:
     google = loginLinks[2]
     google.click()
-<<<<<<< HEAD
     googleUsername = input("Enter your Google Username: ")
     username = driver.find_element_by_id("identifierId")
     username.send_keys(googleUsername)
     login = driver.find_element_by_class_name("VfPpkd-RLmnJb")
     login.click()
-=======
-
->>>>>>> ecd75d5ccbfa657956d73593131f52caeeca067a
 elif loginMethod == 4:
     phoneNumber = loginLinks[3]
     phoneNumber.click()
