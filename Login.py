@@ -24,7 +24,7 @@ PATH = "C:\Program Files (x86)\chromedriver.exe"
 #options = webdriver.ChromeOptions()
 #options.headless = True
 driver = webdriver.Chrome(PATH)#,options=options)
-driver.get("https://open.spotify.com")
+driver.get("https://open.spotify.com/")
 time.sleep(5)
 loginbutton = driver.find_element_by_css_selector('[data-testid="login-button"]')
 loginbutton.click()
@@ -39,6 +39,8 @@ if loginMethod == 1:
     username.send_keys(facebookUsername)
     passw = driver.find_element_by_id("pass")
     passw.send_keys(facebookPassword)
+    login = driver.find_element_by_id("loginbutton")
+    login.click()
 elif loginMethod == 2:
     appleID = loginLinks[1]
     appleID.click()
@@ -50,7 +52,11 @@ elif loginMethod == 2:
 elif loginMethod == 3:
     google = loginLinks[2]
     google.click()
-
+    googleUsername = input("Enter your Google Username: ")
+    username = driver.find_element_by_id("identifierId")
+    username.send_keys(googleUsername)
+    login = driver.find_element_by_class_name("VfPpkd-RLmnJb")
+    login.click()
 elif loginMethod == 4:
     phoneNumber = loginLinks[3]
     phoneNumber.click()
