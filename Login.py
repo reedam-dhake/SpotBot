@@ -49,14 +49,17 @@ elif loginMethod == 2:
     username.send_keys(appleUsername)
     enterButton = driver.find_element_by_css_selector("i")
     enterButton.click()
-elif loginMethod == 3:
-    google = loginLinks[2]
-    google.click()
-    googleUsername = input("Enter your Google Username: ")
-    username = driver.find_element_by_id("identifierId")
-    username.send_keys(googleUsername)
-    login = driver.find_element_by_class_name("VfPpkd-RLmnJb")
-    login.click()
+elif loginMethod in [3,5]:
+    directlogin = loginLinks[4]
+    directlogin.click()
+    Username = input("Enter Username/Email: ").strip()
+    Password = input("Enter Password: ").strip()
+    username = driver.find_element_by_id("login-username")
+    username.send_keys(Username)
+    passw = driver.find_element_by_id("login-password")
+    passw.send_keys(Password)
+    button=driver.find_element_by_id("login-button")
+    button.click()
 elif loginMethod == 4:
     phoneNumber = loginLinks[3]
     phoneNumber.click()
@@ -70,14 +73,4 @@ elif loginMethod == 4:
     q.send_keys(otp)
     button=driver.find_element_by_id("code-button")
     button.click()
-elif loginMethod == 5:
-    directlogin = loginLinks[4]
-    directlogin.click()
-    Username = input("Enter Username: ").strip()
-    Password = input("Enter Password: ").strip()
-    username = driver.find_element_by_id("login-username")
-    username.send_keys(Username)
-    passw = driver.find_element_by_id("login-password")
-    passw.send_keys(Password)
-    button=driver.find_element_by_id("login-button")
-    button.click()
+
