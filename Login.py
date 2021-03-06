@@ -73,3 +73,5 @@ elif loginMethod == 5:
     username.send_keys(Username)
     passw = driver.find_element_by_id("login-password")
     passw.send_keys(Password)
+    button=driver.find_element_by_id("login-button")
+    button.click()
