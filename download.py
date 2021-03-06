@@ -9,19 +9,26 @@ import os
 PATH = "C:\Program Files (x86)\chromedriver.exe"
 #options = webdriver.ChromeOptions()
 #options.headless = True
-driver = webdriver.Chrome(PATH)#,options=options)
 cwdPath = os.getcwd()
 directory = "newSpotifyPlaylist"
-path = os.path.join(cwdPath, directory)
-os.mkdir(path)
+path1 = os.path.join(cwdPath, directory)
+if not os.path.exists(path1):
+    os.mkdir(path1)
 chrome_options = webdriver.ChromeOptions()
-prefs = {'download.default_directory' : path}
+prefs = {'download.default_directory' : path1}
 chrome_options.add_experimental_option('prefs', prefs)
-driver = webdriver.Chrome(chrome_options=chrome_options)
 #Below is the song list
 songList = ["roar katy perry", "firework katy perry"]
-driver.get("https://www.google.com/")
+def latest_download_file():
+    path = path1
+    os.chdir(path)
+    files = sorted(os.listdir(os.getcwd()), key=os.path.getmtime)
+    newest = files[-1]
+    return newest
 for i in range(len(songList)):
+    driver = webdriver.Chrome(PATH,chrome_options=chrome_options)
+    #Below is the song list
+    driver.get("https://www.google.com/")
     searchButton = driver.find_element_by_class_name("gLFyf")
     searchButton.send_keys(songList[i])
     searchButton.submit()
@@ -44,3 +51,12 @@ for i in range(len(songList)):
     buttons.find_element_by_css_selector("a").click()
     time.sleep(1)
     driver.execute_script("window.history.go(-3)")
+    fileends = "crdownload"
+    while "crdownload" == fileends:
+        time.sleep(1)
+        newest_file = latest_download_file()
+        if "crdownload" in newest_file:
+            fileends = "crdownload"
+        else:
+            fileends = "none"
+    driver.close()
