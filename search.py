@@ -46,7 +46,13 @@ def search(driver):
             else:
                 print("\nYour entry is invalid. Please try again.")
         if playlistType == 1:
-            print("Own playlist code.")
+            playlistname=input("Enter playlist name.").strip()
+            menu = driver.find_elements_by_css_selector('[data-testid="rootlist"]')
+            playlistlist=menu.find_elements_by_tag_name("li")
+            for playlist in playlistlist:
+                if playlist.get_attribute("href").lower()==playlistname.lower():
+                    return(playlist.get_attribute("href"))
+            return("No such playlist found in your library.")
         elif playlistType == 2:
             searchInput = input("\nPlease type the name of the playlist.\n")
             searchButton.send_keys(searchInput)
@@ -104,7 +110,7 @@ def search(driver):
         songs = driver.find_elements_by_css_selector('[data-testid="tracklist-row"]')[0:5]
         songNameList = [x.find_element_by_class_name("da0bc4060bb1bdb4abb8e402916af32e-scss").text for x in songs]
         songArtistList = [x.find_element_by_css_selector("a").text for x in songs]
-        songAlbumList = [x.find_element_by_class_name("standalone-ellipsis-one-line")]
+        songAlbumList = [x.find_element_by_class_name("standalone-ellipsis-one-line") for x in songs]
         print("Please choose the number corresponding to your song.")
         print("Number - Song Name - Artist - Album")
         for i in range(5):
