@@ -50,7 +50,7 @@ def search(driver):
             menu = driver.find_elements_by_css_selector('[data-testid="rootlist"]')
             playlistlist=menu.find_elements_by_tag_name("li")
             for playlist in playlistlist:
-                if playlist.get_attribute("href").lower()==playlistname.lower():
+                if playlist.text.lower()==playlistname.lower():
                     return(playlist.get_attribute("href"))
             return("No such playlist found in your library.")
         elif playlistType == 2:
