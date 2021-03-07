@@ -1,15 +1,4 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
 import time
-import os
-PATH = "C:\\Program Files (x86)\\chromedriver.exe"
-#options = webdriver.ChromeOptions()
-#options.headless = True
-driver = webdriver.Chrome(PATH)#,options=options)
 def loginFun(driver):
     print("Enter the number corresponding to your preferred login method.")
     print("1. Facebook")
@@ -19,13 +8,13 @@ def loginFun(driver):
     loginMethod=0
     while(True):
         loginMethod = input().strip()
-        if loginMethod.isnumeric() and loginMethod < 5:
+        if loginMethod in ['1','2','3','4']:
             loginMethod=int(loginMethod)
             break
         else:
             print("Not a valid entry.")
     driver.get("https://open.spotify.com/")
-    time.sleep+(5)
+    time.sleep(5)
     loginbutton = driver.find_element_by_css_selector('[data-testid="login-button"]')
     loginbutton.click()
     time.sleep(5)
@@ -75,5 +64,4 @@ def loginFun(driver):
         passw = driver.find_element_by_id("login-password")
         passw.send_keys(Password)
         button=driver.find_element_by_id("login-button")
-        button.click()    
-loginFun()
+        button.click()
