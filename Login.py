@@ -6,27 +6,26 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 import time
 import os
-def loginFun():
-    print("Enter the number corresponding to your preffered login method.")
+PATH = "C:\\Program Files (x86)\\chromedriver.exe"
+#options = webdriver.ChromeOptions()
+#options.headless = True
+driver = webdriver.Chrome(PATH)#,options=options)
+def loginFun(driver):
+    print("Enter the number corresponding to your preferred login method.")
     print("1. Facebook")
-    print("2. Apple ID")
-    print("3. Google")
-    print("4. Phone number")
-    print("5. Username and Password\n")
+    print("2. Google")
+    print("3. Phone number")
+    print("4. Username and Password\n")
     loginMethod=0
     while(True):
         loginMethod = input().strip()
-        if loginMethod.isnumeric():
+        if loginMethod.isnumeric() and loginMethod < 5:
             loginMethod=int(loginMethod)
             break
         else:
             print("Not a valid entry.")
-    PATH = "C:\Program Files (x86)\chromedriver.exe"
-    #options = webdriver.ChromeOptions()
-    #options.headless = True
-    driver = webdriver.Chrome(PATH)#,options=options)
     driver.get("https://open.spotify.com/")
-    time.sleep(5)
+    time.sleep+(5)
     loginbutton = driver.find_element_by_css_selector('[data-testid="login-button"]')
     loginbutton.click()
     time.sleep(5)
@@ -43,17 +42,9 @@ def loginFun():
         login = driver.find_element_by_id("loginbutton")
         login.click()
     elif loginMethod == 2:
-        appleID = loginLinks[1]
-        appleID.click()
-        appleUsername = input("Enter your Apple ID: ")
-        username = driver.find_element_by_id("account_name_text_field")
-        username.send_keys(appleUsername)
-        enterButton = driver.find_element_by_css_selector("i")
-        enterButton.click()
-    elif loginMethod in [3,5]:
         directlogin = loginLinks[4]
         directlogin.click()
-        Username = input("Enter Username/Email: ").strip()
+        Username = input("Enter Email ID: ").strip()
         Password = input("Enter Password: ").strip()
         username = driver.find_element_by_id("login-username")
         username.send_keys(Username)
@@ -61,7 +52,7 @@ def loginFun():
         passw.send_keys(Password)
         button=driver.find_element_by_id("login-button")
         button.click()
-    elif loginMethod == 4:
+    elif loginMethod == 3:
         phoneNumber = loginLinks[3]
         phoneNumber.click()
         phonenum=input("Enter your phone number: ").strip()
@@ -74,4 +65,15 @@ def loginFun():
         q.send_keys(otp)
         button=driver.find_element_by_id("code-button")
         button.click()
-    return(driver)
+    elif loginMethod == 4:
+        directlogin = loginLinks[4]
+        directlogin.click()
+        Username = input("Enter Username/Email: ").strip()
+        Password = input("Enter Password: ").strip()
+        username = driver.find_element_by_id("login-username")
+        username.send_keys(Username)
+        passw = driver.find_element_by_id("login-password")
+        passw.send_keys(Password)
+        button=driver.find_element_by_id("login-button")
+        button.click()    
+loginFun()
