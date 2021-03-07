@@ -13,3 +13,5 @@ options.headless = True
 prefs = {'download.default_directory' : path1}
 options.add_experimental_option('prefs', prefs)
 driver = webdriver.Chrome(PATH,options=options)
+S = lambda X: driver.execute_script('return document.body.parentNode.scroll'+X)
+driver.set_window_size(S('Width'),S('Height'))
